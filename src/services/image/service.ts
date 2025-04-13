@@ -7,6 +7,7 @@ import {
   GetAllImagesRequest,
   GetImageDataRequest,
   GetImageFileRequest,
+  UploadImageRequest,
 } from './requests';
 import { GetAllImagesResponse, GetImageDataResponse } from './responses';
 
@@ -18,11 +19,26 @@ const ImageService = {
     const paginationQuery = `?pagination=${pagination || pagination === undefined ? 'true' : 'false'}`;
     const pageSizeQuery = `&pageSize=${pageSize}`;
     const pageNumberQuery = `&pageNumber=${pageNumber}`;
-    const filenameQuery = filename !== undefined ? `filename=${filename}` : '';
+    const filenameQuery = filename !== undefined ? `&filename=${filename}` : '';
 
     return await axios.get<AxiosResponse<GetAllImagesResponse>>(
       `${url}${paginationQuery}${pageSizeQuery}${pageNumberQuery}${filenameQuery}`,
     );
+  },
+
+  uploadImage: async (uploadImageRequest: UploadImageRequest) => {
+    const { filename, description, file } = uploadImageRequest;
+
+    const formdata = new FormData();
+    formdata.append('image', file);
+    formdata.append('filename', filename);
+    formdata.append('description', description);
+
+    return await axios.post<AxiosResponse<void>>(`${url}/`, formdata, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 
   getImageData: async (getImageDataRequest: GetImageDataRequest) => {

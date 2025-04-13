@@ -125,11 +125,11 @@ function RouteComponent() {
                 <span>{isoDateFormat(imageData.createdAt)}</span>
               </div>
             </div>
-            <div
-              onClick={deleteImage}
-              className="flex w-full flex-row relative gap-5"
-            >
-              <button className="text-white cursor-pointer font-bold bg-red-700 hover:bg-red-900 ease-in-out duration-200 py-2 w-full">
+            <div className="flex w-full flex-row relative gap-5">
+              <button
+                onClick={deleteImage}
+                className="text-white cursor-pointer font-bold bg-red-700 hover:bg-red-900 ease-in-out duration-200 py-2 w-full"
+              >
                 Delete image
               </button>
               <button

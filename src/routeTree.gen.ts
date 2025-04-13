@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './features/~__root';
 import { Route as IndexImport } from './features/~index';
+import { Route as GalleryUploadImport } from './features/~gallery/~upload';
 import { Route as GalleryIndexImport } from './features/~gallery/~index';
 import { Route as GalleryIdIndexImport } from './features/~gallery/~$id/~index';
 
@@ -20,6 +21,12 @@ import { Route as GalleryIdIndexImport } from './features/~gallery/~$id/~index';
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const GalleryUploadRoute = GalleryUploadImport.update({
+  id: '/gallery/upload',
+  path: '/gallery/upload',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryIndexImport;
       parentRoute: typeof rootRoute;
     };
+    '/gallery/upload': {
+      id: '/gallery/upload';
+      path: '/gallery/upload';
+      fullPath: '/gallery/upload';
+      preLoaderRoute: typeof GalleryUploadImport;
+      parentRoute: typeof rootRoute;
+    };
     '/gallery/$id/': {
       id: '/gallery/$id/';
       path: '/gallery/$id';
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
   '/gallery': typeof GalleryIndexRoute;
+  '/gallery/upload': typeof GalleryUploadRoute;
   '/gallery/$id': typeof GalleryIdIndexRoute;
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
   '/gallery': typeof GalleryIndexRoute;
+  '/gallery/upload': typeof GalleryUploadRoute;
   '/gallery/$id': typeof GalleryIdIndexRoute;
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexRoute;
   '/gallery/': typeof GalleryIndexRoute;
+  '/gallery/upload': typeof GalleryUploadRoute;
   '/gallery/$id/': typeof GalleryIdIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/gallery' | '/gallery/$id';
+  fullPaths: '/' | '/gallery' | '/gallery/upload' | '/gallery/$id';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/gallery' | '/gallery/$id';
-  id: '__root__' | '/' | '/gallery/' | '/gallery/$id/';
+  to: '/' | '/gallery' | '/gallery/upload' | '/gallery/$id';
+  id: '__root__' | '/' | '/gallery/' | '/gallery/upload' | '/gallery/$id/';
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   GalleryIndexRoute: typeof GalleryIndexRoute;
+  GalleryUploadRoute: typeof GalleryUploadRoute;
   GalleryIdIndexRoute: typeof GalleryIdIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GalleryIndexRoute: GalleryIndexRoute,
+  GalleryUploadRoute: GalleryUploadRoute,
   GalleryIdIndexRoute: GalleryIdIndexRoute,
 };
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/gallery/",
+        "/gallery/upload",
         "/gallery/$id/"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/gallery/": {
       "filePath": "~gallery/~index.tsx"
+    },
+    "/gallery/upload": {
+      "filePath": "~gallery/~upload.tsx"
     },
     "/gallery/$id/": {
       "filePath": "~gallery/~$id/~index.tsx"

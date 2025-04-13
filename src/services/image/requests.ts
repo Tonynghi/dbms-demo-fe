@@ -5,6 +5,12 @@ export type GetAllImagesRequest = {
   filename?: string;
 };
 
+export type UploadImageRequest = {
+  filename: string;
+  description: string;
+  file: File;
+};
+
 export type GetImageDataRequest = {
   id: string;
 };
