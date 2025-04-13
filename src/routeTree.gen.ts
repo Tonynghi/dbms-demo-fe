@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './features/~__root';
 import { Route as IndexImport } from './features/~index';
+import { Route as GalleryIndexImport } from './features/~gallery/~index';
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const GalleryIndexRoute = GalleryIndexImport.update({
+  id: '/gallery/',
+  path: '/gallery/',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport;
       parentRoute: typeof rootRoute;
     };
+    '/gallery/': {
+      id: '/gallery/';
+      path: '/gallery';
+      fullPath: '/gallery';
+      preLoaderRoute: typeof GalleryIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
+  '/gallery': typeof GalleryIndexRoute;
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
+  '/gallery': typeof GalleryIndexRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexRoute;
+  '/gallery/': typeof GalleryIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/';
+  fullPaths: '/' | '/gallery';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/';
-  id: '__root__' | '/';
+  to: '/' | '/gallery';
+  id: '__root__' | '/' | '/gallery/';
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  GalleryIndexRoute: typeof GalleryIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GalleryIndexRoute: GalleryIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "~__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/gallery/"
       ]
     },
     "/": {
       "filePath": "~index.tsx"
+    },
+    "/gallery/": {
+      "filePath": "~gallery/~index.tsx"
     }
   }
 }

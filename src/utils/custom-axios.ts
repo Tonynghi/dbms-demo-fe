@@ -13,6 +13,7 @@ instance.interceptors.request.use(
   (config) => {
     const token: string | null = storage.getItem('token');
     config.headers.Authorization = `Bearer ${token}`;
+    config.withCredentials = false;
     return config;
   },
   (error) => {

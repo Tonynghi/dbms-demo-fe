@@ -1,6 +1,6 @@
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 // import { useCallback, useEffect } from 'react';
 import {
@@ -8,7 +8,7 @@ import {
   ToastContainer,
 } from 'react-toastify';
 
-// import { GOOGLE_OAUTH_CLIENT_ID } from '@/config/env';
+import { GOOGLE_OAUTH_CLIENT_ID } from '@/config/env';
 // import handleAxiosError from '@/helpers/handle-axios-error';
 import { routeTree } from '@/routeTree.gen';
 // import { logger } from '@/utils/logger';
@@ -68,23 +68,23 @@ const App = () => {
   // }, [isAuthenticated, getProfile, reloadBalance]);
 
   return (
-    // <GoogleOAuthProvider clientId={GOOGLE_OAUTH_CLIENT_ID}>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <AppRouter />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-    </LocalizationProvider>
-    // </GoogleOAuthProvider>
+    <GoogleOAuthProvider clientId={GOOGLE_OAUTH_CLIENT_ID}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <AppRouter />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </LocalizationProvider>
+    </GoogleOAuthProvider>
   );
 };
 
