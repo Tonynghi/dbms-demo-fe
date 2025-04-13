@@ -1,5 +1,51 @@
 @import 'tailwindcss';
 
+@theme {
+  --white: #ffffff;
+  --black: #000000;
+
+  --primary: #0329e9;
+  --primary-300: #617af9;
+  --primary-700: #011fb2;
+
+  --secondary: #f9ba08;
+  --secondary-300: #ffde80;
+  --secondary-700: #ce9801;
+
+  --tertiary: #3d4863;
+  --tertiary-300: #a3acc2;
+  --tertiary-700: #1c2a4c;
+
+  --fessior: #0b2878;
+
+  --blue: #4285f4;
+  --blue-300: #8ab4f8;
+  --blue-700: #1860d8;
+
+  --green: #34a853;
+  --green-300: #81c995;
+  --green-700: #108b31;
+
+  --yellow: #f9ab00;
+  --yellow-300: #fde293;
+  --yellow-700: #c58700;
+
+  --red: #ea4335;
+  --red-300: #f28b82;
+  --red-700: #c51708;
+
+  --orange: #f28500;
+
+  --magenta: #ff2d55;
+
+  --hcmut-light: #1488d8;
+  --hcmut-dark: #030391;
+
+  --facebook: #0866ff;
+  --zalo: #006af5;
+  --zalo-700: #001a33;
+}
+
 body {
   margin: 0;
   font-family:

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './features/~__root';
 import { Route as IndexImport } from './features/~index';
 import { Route as GalleryIndexImport } from './features/~gallery/~index';
+import { Route as GalleryIdIndexImport } from './features/~gallery/~$id/~index';
 
 // Create/Update Routes
 
@@ -25,6 +26,12 @@ const IndexRoute = IndexImport.update({
 const GalleryIndexRoute = GalleryIndexImport.update({
   id: '/gallery/',
   path: '/gallery/',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const GalleryIdIndexRoute = GalleryIdIndexImport.update({
+  id: '/gallery/$id/',
+  path: '/gallery/$id/',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryIndexImport;
       parentRoute: typeof rootRoute;
     };
+    '/gallery/$id/': {
+      id: '/gallery/$id/';
+      path: '/gallery/$id';
+      fullPath: '/gallery/$id';
+      preLoaderRoute: typeof GalleryIdIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
   '/gallery': typeof GalleryIndexRoute;
+  '/gallery/$id': typeof GalleryIdIndexRoute;
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
   '/gallery': typeof GalleryIndexRoute;
+  '/gallery/$id': typeof GalleryIdIndexRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexRoute;
   '/gallery/': typeof GalleryIndexRoute;
+  '/gallery/$id/': typeof GalleryIdIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/gallery';
+  fullPaths: '/' | '/gallery' | '/gallery/$id';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/gallery';
-  id: '__root__' | '/' | '/gallery/';
+  to: '/' | '/gallery' | '/gallery/$id';
+  id: '__root__' | '/' | '/gallery/' | '/gallery/$id/';
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   GalleryIndexRoute: typeof GalleryIndexRoute;
+  GalleryIdIndexRoute: typeof GalleryIdIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GalleryIndexRoute: GalleryIndexRoute,
+  GalleryIdIndexRoute: GalleryIdIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "~__root.tsx",
       "children": [
         "/",
-        "/gallery/"
+        "/gallery/",
+        "/gallery/$id/"
       ]
     },
     "/": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/gallery/": {
       "filePath": "~gallery/~index.tsx"
+    },
+    "/gallery/$id/": {
+      "filePath": "~gallery/~$id/~index.tsx"
     }
   }
 }
