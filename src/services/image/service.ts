@@ -3,6 +3,7 @@ import { AxiosResponse } from '@/types';
 import axios from '@/utils/custom-axios';
 
 import {
+  DeleteImageRequest,
   GetAllImagesRequest,
   GetImageDataRequest,
   GetImageFileRequest,
@@ -36,6 +37,12 @@ const ImageService = {
     return await axios.get<ArrayBuffer>(`${url}/attachments/${id}`, {
       responseType: 'arraybuffer',
     });
+  },
+
+  deleteImage: async (deleteImageRequest: DeleteImageRequest) => {
+    const { id } = deleteImageRequest;
+
+    return await axios.delete<void>(`${url}/${id}`);
   },
 };
 

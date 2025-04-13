@@ -12,3 +12,7 @@ export type GetImageDataRequest = {
 export type GetImageFileRequest = {
   id: string;
 };
+
+export type DeleteImageRequest = {
+  id: string;
+};
